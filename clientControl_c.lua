@@ -29,6 +29,14 @@ function onFrame()
     SetSuperJumpThisFrame(PlayerId(), 2000) -- Native, needs to be called every Frame
     RestorePlayerStamina(PlayerId(), 100) -- Native, resets player stamina, therefore makes it basically infinite 
 
+    for k,v in pairs(directions)do
+        direction = GetEntityHeading(PlayerPedId()) -- where is the player looking at
+        if(math.abs(direction - k) < 22.5)then -- heavy calculation. math.abs is really expensive. 
+            direction = v
+            break
+        end
+    end
+
     drawTxt(
         0.685, -- x position. 
         1.42,  -- y position
@@ -42,13 +50,13 @@ end
 
 -- called every 500ms. Used for expensive calculations.
 function onCalculation()
-    for k,v in pairs(directions)do
-        direction = GetEntityHeading(PlayerPedId()) -- where is the player looking at
-        if(math.abs(direction - k) < 22.5)then -- heavy calculation. math.abs is really expensive. 
-            direction = v
-            break
-        end
-    end
+    -- for k,v in pairs(directions)do
+    --     direction = GetEntityHeading(PlayerPedId()) -- where is the player looking at
+    --     if(math.abs(direction - k) < 22.5)then -- heavy calculation. math.abs is really expensive. 
+    --         direction = v
+    --         break
+    --     end
+    -- end
 end
 
 function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
